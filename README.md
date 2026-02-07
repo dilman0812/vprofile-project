@@ -114,13 +114,17 @@ This validation ensured:
 - Successful inter-service communication
 - Application functionality before automation
 
-### Manual Infrastructure Validation
+### Manual Multi-VM Provisioning
+
+This screenshot captures the initial manual `vagrant up` execution used to validate the infrastructure before automating the stack.
 
 ![Manual multi-VM provisioning](screenshots/manual-vagrant-up.png)
 
-### Manual Application Access
+### Manual Infrastructure Validation
 
-![Application accessed manually via Nginx](screenshots/manual-app-access.png)
+The following screenshot shows all virtual machines running successfully after manual provisioning, confirming correct multi-VM setup before automation.
+
+![Manual infrastructure validation via vagrant status](screenshots/manual-service-status.png)
 
 ---
 
