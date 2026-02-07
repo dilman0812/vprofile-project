@@ -1,4 +1,4 @@
-# VProfile Local Multi-Tier DevOps Stack (Vagrant)
+# vprofile-local-devops-stack
 
 ## Overview
 
@@ -59,20 +59,27 @@ All services communicate using hostnames instead of hardcoded IPs.
 
 ## Project Structure
 
-    vprofile-project/
-    └── vagrant/
-        ├── Manual_provisioning_WinMacIntel/
-        │   └── Vagrantfile
+        vprofile-project/
+        ├── README.md
+        ├── screenshots/
+        │   ├── manual-vagrant-up.png
+        │   ├── manual-service-status.png
+        │   ├── automation-vagrant-up.png
+        │   └── automation-app-access.png
         │
-        └── Automated_provisioning_WinMacIntel/
-            ├── Vagrantfile
-            ├── mysql.sh
-            ├── memcache.sh
-            ├── rabbitmq.sh
-            ├── tomcat.sh
-            ├── nginx.sh
-            └── extras/
-                └── tomcat_ubuntu.sh
+        └── vagrant/
+            ├── Manual_provisioning_WinMacIntel/
+            │   └── Vagrantfile
+            │
+            └── Automated_provisioning_WinMacIntel/
+                ├── Vagrantfile
+                ├── mysql.sh
+                ├── memcache.sh
+                ├── rabbitmq.sh
+                ├── tomcat.sh
+                ├── nginx.sh
+                └── extras/
+                    └── tomcat_ubuntu.sh
 
 ### Design Notes
 
@@ -98,6 +105,23 @@ This mirrors real DevOps workflows:
 
     Understand → Validate → Automate
 
+## Manual Validation (Pre-Automation)
+
+Before automating the stack, the infrastructure and services were provisioned manually to understand service dependencies and runtime behavior.
+
+This validation ensured:
+- Correct startup order of services
+- Successful inter-service communication
+- Application functionality before automation
+
+### Manual Infrastructure Validation
+
+![Manual multi-VM provisioning](screenshots/manual-vagrant-up.png)
+
+### Manual Application Access
+
+![Application accessed manually via Nginx](screenshots/manual-app-access.png)
+
 ---
 
 ## Automated Provisioning (IaC)
@@ -111,6 +135,27 @@ Each virtual machine provisions its service automatically using shell scripts.
 | rmq01 | rabbitmq.sh | Message broker |
 | app01 | tomcat.sh | App server, build, deploy |
 | web01 | nginx.sh | Reverse proxy |
+
+## Automated Provisioning & Validation
+
+The complete multi-tier application stack is provisioned automatically using a single command:
+
+    vagrant up
+
+This command:
+- Creates all virtual machines
+- Executes provisioning scripts automatically
+- Brings the entire stack to a running state without manual intervention
+
+### Automated Infrastructure Provisioning
+
+![Automated provisioning via Vagrant](screenshots/automation-vagrant-up.png)
+
+### Automated End-to-End Validation
+
+After provisioning completes, the application is accessible via the Nginx load balancer:
+
+![Application accessed after automated provisioning](screenshots/automation-app-access.png)
 
 ### One-Command Setup
 
@@ -152,7 +197,7 @@ This confirms end-to-end service integration.
 
 ### Steps
 
-    git clone <your-repo-url>
+    git clone https://github.com/dilman0812/vprofile-local-devops-stack
     cd vagrant/Automated_provisioning_WinMacIntel
     vagrant up
 
